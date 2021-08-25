@@ -15,7 +15,6 @@ def split(im, rows, cols, image_path):
         for j in range(0, rows):
             box = (j * row_width, i * row_height, j * row_width +
                    row_width, i * row_height + row_height)
-            print(box)
             outp = im.crop(box)
             outp_path = image_path.split(".")[0] + "_" + str(n) + ".png"
             print("Exporting image tile: " + outp_path)
