@@ -1,4 +1,4 @@
-#split-image
+# split-image
 
 
 ## Quickly split an image into rows and columns (tiles).
