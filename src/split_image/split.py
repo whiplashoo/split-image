@@ -1,4 +1,5 @@
 #!usr/bin/env python
+
 import argparse
 from collections import Counter
 
@@ -41,7 +42,7 @@ def determine_bg_color(im):
     return Counter(all_colors).most_common(1)[0][0]
 
 
-if __name__ == "__main__":
+def main():
     parser = argparse.ArgumentParser(
         description="Split an image into rows and columns.")
     parser.add_argument("image_path", nargs=1,
@@ -75,3 +76,7 @@ if __name__ == "__main__":
     else:
         split(im, args.rows, args.cols, image_path)
     print("Done!")
+
+
+if __name__ == "__main__":
+    main()
