@@ -3,7 +3,7 @@
 
 ## Quickly split an image into rows and columns (tiles).
 
-[split-image](https://pypi.org/project/split-image/) is a Python package that you can use from the command line to split an image into tile.
+[split-image](https://pypi.org/project/split-image/) is a Python package that you can use from the command line to split an image into tiles.
 
 <p align="center">
 <img width="75%" src="https://user-images.githubusercontent.com/9117427/130825947-e78c4d15-6a89-40f8-9aa1-ddfa3b23779c.png"/>
@@ -56,4 +56,9 @@ optional arguments:
 
 
 ```
+
+Cat photo by <a href="https://unsplash.com/@madhatterzone?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Manja Vitolic</a> on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+  
+Bridge photo by <a href="https://unsplash.com/@lance_asper?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Lance Asper</a> on <a href="https://unsplash.com/s/photos/bridge?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+
 
