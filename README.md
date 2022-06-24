@@ -1,5 +1,6 @@
 # split-image
 
+[![Downloads](https://static.pepy.tech/personalized-badge/split-image?period=total&units=international_system&left_color=blue&right_color=orange&left_text=Downloads)](https://pepy.tech/project/split-image) [![Downloads](https://static.pepy.tech/personalized-badge/split-image?period=month&units=international_system&left_color=blue&right_color=yellow&left_text=Downloads%20per%20month)](https://pepy.tech/project/split-image)
 
 ## Quickly split an image into rows and columns (tiles).
 
