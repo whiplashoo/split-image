@@ -1,5 +1,5 @@
 #!usr/bin/env python
-
+import os
 import argparse
 from collections import Counter
 
@@ -16,7 +16,10 @@ def split(im, rows, cols, image_path):
             box = (j * row_width, i * row_height, j * row_width +
                    row_width, i * row_height + row_height)
             outp = im.crop(box)
-            outp_path = image_path.split(".")[0] + "_" + str(n) + ".png"
+            # os.path.splitext("C:/aa/bb/cc.ee.fff.gg")
+            # -> ('C:/aa/bb/cc.ee.fff', '.gg')
+            name, ext = os.path.splitext(img_path)
+            outp_path = name + "_" + str(n) + ".png"
             print("Exporting image tile: " + outp_path)
             outp.save(outp_path)
             n += 1
