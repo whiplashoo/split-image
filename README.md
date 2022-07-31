@@ -47,14 +47,14 @@ This splits the `bridge.png` image in 12 tiles (`3` rows and `4` columns). The `
 
 #### Reverse split:
 
-`split-image bridge.jpg 2 2 -r`
+`split-image cat.jpg 2 2 -r`
 
 Will attempt to merge similarly named image tiles to one image. So, if you have these images in the current directory:
 
-* `bridge_0.jpg`
-* `bridge_1.jpg`
-* `bridge_2.jpg`
-* `bridge_3.jpg`
+* `cat_0.jpg`
+* `cat_1.jpg`
+* `cat_2.jpg`
+* `cat_3.jpg`
 
 they will be merged according to their file name:
 
