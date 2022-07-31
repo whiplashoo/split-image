@@ -67,8 +67,6 @@ they will be merged according to their file name:
 `split-image test.jpg 4 2 --cleanup`
 
 Will delete the original image after the process.
-![cat-example-reverse]()
-
 
 ```
 
