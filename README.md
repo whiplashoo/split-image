@@ -51,10 +51,10 @@ This splits the `bridge.png` image in 12 tiles (`3` rows and `4` columns). The `
 
 Will attempt to merge similarly named image tiles to one image. So, if you have these images in the current directory:
 
-* bridge_0.jpg
-* bridge_1.jpg
-* bridge_2.jpg
-* bridge_3.jpg
+* `bridge_0.jpg`
+* `bridge_1.jpg`
+* `bridge_2.jpg`
+* `bridge_3.jpg`
 
 they will be merged according to their file name:
 
