@@ -43,6 +43,27 @@ This splits the `bridge.png` image in 12 tiles (`3` rows and `4` columns). The `
 <img width="75%" src="https://user-images.githubusercontent.com/9117427/130825967-f191a5d9-c5c6-4ee3-9dbe-5943a40725fd.png"/>
 </p>
 
+### Other options
+
+`split-image bridge.jpg 2 2 -r`
+
+Reverse split: will attempt to merge similarly named image tiles to one image. So, if you have these images in the current directory:
+
+* bridge_0.jpg
+* bridge_1.jpg
+* bridge_2.jpg
+* bridge_3.jpg
+
+they will be merged according to their file name:
+
+<p align="center">
+<img width="75%" src=https://user-images.githubusercontent.com/9117427/182033273-313b5c3a-89ed-4972-bdcb-33696d81759e.png"/>
+</p>
+
+`split-image test.jpg 4 2 --cleanup`
+
+Adding the `--cleanup` flag will delete the original image after the process.
+
 
 ```
 
@@ -52,8 +73,10 @@ positional arguments:
   cols          How many columns to split the image into (vertical split).
 
 optional arguments:
-  -h, --help    show this help message and exit
-  -s, --square  If the image should be resized into a square before splitting.
+  -h, --help      Show this help message and exit
+  -s, --square    If the image should be resized into a square before splitting.
+  -r, --reverse   Reverse the splitting process, i.e. merge multiple tiles of an image into one.
+  --cleanup       After splitting or merging, delete the original image/images.
 
 
 ```
