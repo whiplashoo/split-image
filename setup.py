@@ -5,9 +5,9 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="split-image",
-    version="1.1.3",
+    version="1.1.4",
     author="Minas Giannekas",
-    author_email="acontact@whidev.com",
+    author_email="contact@whidev.com",
     description="A package that lets you quickly split an image into rows and columns (tiles).",
     long_description=long_description,
     long_description_content_type="text/markdown",
