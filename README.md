@@ -58,6 +58,12 @@ Will attempt to merge similarly named image tiles to one image. So, if you have 
 
 they will be merged according to their file name:
 
+
+
+
+![cat-example-reverse](https://user-images.githubusercontent.com/9117427/182033697-5b6a8754-0f0f-43ff-93a3-4e45e294ce7e.png)
+
+
 <p align="center">
 <img width="75%" src="https://user-images.githubusercontent.com/9117427/182033564-514a47c9-f76e-4ee7-9520-7b1dac68f221.png"/>
 </p>
