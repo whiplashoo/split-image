@@ -1,6 +1,6 @@
 #!usr/bin/env python
-import os
 import argparse
+import os
 from collections import Counter
 
 from PIL import Image
@@ -16,9 +16,7 @@ def split(im, rows, cols, image_path):
             box = (j * row_width, i * row_height, j * row_width +
                    row_width, i * row_height + row_height)
             outp = im.crop(box)
-            # os.path.splitext("C:/aa/bb/cc.ee.fff.gg")
-            # -> ('C:/aa/bb/cc.ee.fff', '.gg')
-            name, ext = os.path.splitext(img_path)
+            name = os.path.splitext(image_path)[0]
             outp_path = name + "_" + str(n) + ".png"
             print("Exporting image tile: " + outp_path)
             outp.save(outp_path)
@@ -49,9 +47,9 @@ def main():
         description="Split an image into rows and columns.")
     parser.add_argument("image_path", nargs=1,
                         help="The path of the image to split.")
-    parser.add_argument("rows", type=int, default=2,
+    parser.add_argument("rows", type=int, default=2, nargs='?',
                         help="How many rows to split the image into (horizontal split).")
-    parser.add_argument("cols", type=int, default=2,
+    parser.add_argument("cols", type=int, default=2, nargs='?',
                         help="How many columns to split the image into (vertical split).")
     parser.add_argument("-s", "--square", action="store_true",
                         help="If the image should be resized into a square before splitting.")
