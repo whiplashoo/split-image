@@ -45,9 +45,11 @@ This splits the `bridge.png` image in 12 tiles (`3` rows and `4` columns). The `
 
 ### Other options
 
+#### Reverse split:
+
 `split-image bridge.jpg 2 2 -r`
 
-Reverse split: will attempt to merge similarly named image tiles to one image. So, if you have these images in the current directory:
+Will attempt to merge similarly named image tiles to one image. So, if you have these images in the current directory:
 
 * bridge_0.jpg
 * bridge_1.jpg
@@ -60,9 +62,11 @@ they will be merged according to their file name:
 <img width="75%" src="https://user-images.githubusercontent.com/9117427/182033564-514a47c9-f76e-4ee7-9520-7b1dac68f221.png"/>
 </p>
 
+#### Cleanup:
+
 `split-image test.jpg 4 2 --cleanup`
 
-Adding the `--cleanup` flag will delete the original image after the process.
+Will delete the original image after the process.
 ![cat-example-reverse]()
 
 
