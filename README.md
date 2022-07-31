@@ -57,12 +57,13 @@ Reverse split: will attempt to merge similarly named image tiles to one image. S
 they will be merged according to their file name:
 
 <p align="center">
-<img width="75%" src=https://user-images.githubusercontent.com/9117427/182033273-313b5c3a-89ed-4972-bdcb-33696d81759e.png"/>
+<img width="75%" src="https://user-images.githubusercontent.com/9117427/182033564-514a47c9-f76e-4ee7-9520-7b1dac68f221.png"/>
 </p>
 
 `split-image test.jpg 4 2 --cleanup`
 
 Adding the `--cleanup` flag will delete the original image after the process.
+![cat-example-reverse]()
 
 
 ```
