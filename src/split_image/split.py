@@ -97,8 +97,12 @@ def main():
                         help="Reverse the splitting process, i.e. merge multiple tiles of an image into one.")
     parser.add_argument("--cleanup", action="store_true",
                         help="After splitting or merging, delete the original image/images.")
+    parser.add_argument("--load-large-images", action="store_true",
+                        help="Ignore the PIL decompression bomb protection and load all large files.")
     args = parser.parse_args()
     image_path = args.image_path[0]
+    if args.load_large_images:
+        Image.MAX_IMAGE_PIXELS = None
     if args.reverse:
         print(
             "Reverse mode selected! Will try to merge multiple tiles of an image into one.")
