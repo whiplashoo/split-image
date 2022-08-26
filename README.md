@@ -68,6 +68,12 @@ they will be merged according to their file name:
 
 Will delete the original image after the process.
 
+#### Large images:
+
+`split-image test.jpg 4 2 --load-large-images`
+
+When working with large images (over 178,956,970 pixels), you may get an error. Pass this flag to override this.
+
 ```
 
 positional arguments:
@@ -76,11 +82,11 @@ positional arguments:
   cols          How many columns to split the image into (vertical split).
 
 optional arguments:
-  -h, --help      Show this help message and exit
-  -s, --square    If the image should be resized into a square before splitting.
-  -r, --reverse   Reverse the splitting process, i.e. merge multiple tiles of an image into one.
-  --cleanup       After splitting or merging, delete the original image/images.
-
+  -h, --help            Show this help message and exit
+  -s, --square          If the image should be resized into a square before splitting.
+  -r, --reverse         Reverse the splitting process, i.e. merge multiple tiles of an image into one.
+  --cleanup             After splitting or merging, delete the original image/images.
+  --load-large-images   Pass this flag for use with really large images.
 
 ```
 
