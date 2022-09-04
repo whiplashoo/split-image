@@ -43,7 +43,7 @@ def reverse_split(paths_to_merge, rows, cols, image_path, should_cleanup):
     new_width = image1.size[0] * cols
     new_height = image1.size[1] * rows
     print(paths_to_merge)
-    new_image = Image.new('RGB', (new_width, new_height), (250, 250, 250))
+    new_image = Image.new(image1.mode, (new_width, new_height))
     print("Merging image tiles with the following layout:", end=" ")
     for i in range(0, rows):
         print("\n")
@@ -56,7 +56,6 @@ def reverse_split(paths_to_merge, rows, cols, image_path, should_cleanup):
             new_image.paste(image, (j * image.size[0], i * image.size[1]))
     print("Saving merged image: " + image_path)
     new_image.save(image_path)
-    new_image.show()
     if should_cleanup:
         for p in paths_to_merge:
             print("Cleaning up: " + p)
