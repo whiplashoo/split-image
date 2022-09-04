@@ -111,7 +111,7 @@ def main():
         # followed by "_" and a number, and with the same file extension.
         expr = re.compile(r"^" + start_name + "_\d+" + ext + "$")
         paths_to_merge = sorted([f for f in os.listdir(
-            os.getcwd()) if re.match(expr, f)])
+            os.getcwd()) if re.match(expr, f)], key=lambda x: int(x.split("_")[-1].split(".")[0]))
         reverse_split(paths_to_merge, args.rows,
                       args.cols, image_path, args.cleanup)
     else:
