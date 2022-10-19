@@ -74,6 +74,12 @@ Will delete the original image after the process.
 
 When working with large images (over 178,956,970 pixels), you may get an error. Pass this flag to override this.
 
+
+
+#### Assign output folder:
+
+`split-image test.jpg --output_dir output_folder`
+
 ```
 
 positional arguments:
@@ -87,6 +93,7 @@ optional arguments:
   -r, --reverse         Reverse the splitting process, i.e. merge multiple tiles of an image into one.
   --cleanup             After splitting or merging, delete the original image/images.
   --load-large-images   Pass this flag for use with really large images.
+  --output_dir OUTPUT_DIR  Assign splitted-images save folder.
 
 ```
 
