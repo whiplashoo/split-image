@@ -7,7 +7,7 @@ from collections import Counter
 from PIL import Image
 
 
-def split(im, rows, cols, image_path, should_cleanup):
+def split(im, rows, cols, image_path, should_cleanup, output_dir=None):
     im_width, im_height = im.size
     row_width = int(im_width / rows)
     row_height = int(im_height / cols)
@@ -19,6 +19,10 @@ def split(im, rows, cols, image_path, should_cleanup):
             outp = im.crop(box)
             name, ext = os.path.splitext(image_path)
             outp_path = name + "_" + str(n) + ext
+            if output_dir != None:
+                if not os.path.exists(output_dir):
+                    os.makedirs(output_dir)
+                outp_path = os.path.join(output_dir, outp_path)
             print("Exporting image tile: " + outp_path)
             outp.save(outp_path)
             n += 1
@@ -98,6 +102,9 @@ def main():
                         help="After splitting or merging, delete the original image/images.")
     parser.add_argument("--load-large-images", action="store_true",
                         help="Ignore the PIL decompression bomb protection and load all large files.")
+    parser.add_argument("--output-dir", type=str,
+                        help="Set the output directory for image tiles (e.g. 'outp/images'). Defaults to current working directory.")
+
     args = parser.parse_args()
     image_path = args.image_path[0]
     if args.load_large_images:
@@ -129,11 +136,13 @@ def main():
                 im_r.paste(im, (0, offset))
             else:
                 im_r.paste(im, (offset, 0))
-            split(im_r, args.rows, args.cols, image_path, args.cleanup)
+            split(im_r, args.rows, args.cols, image_path,
+                  args.cleanup, output_dir=args.output_dir)
             print("Exporting resized image...")
             im_r.save(image_path + "_squared.png")
         else:
-            split(im, args.rows, args.cols, image_path, args.cleanup)
+            split(im, args.rows, args.cols, image_path,
+                  args.cleanup, output_dir=args.output_dir)
     print("Done!")
 
 

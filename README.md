@@ -74,6 +74,12 @@ Will delete the original image after the process.
 
 When working with large images (over 178,956,970 pixels), you may get an error. Pass this flag to override this.
 
+#### Assign output folder:
+
+`split-image test.jpg 2 2 --output-dir <dir-name>`
+
+Set the output directory for image tiles (e.g. 'outp/images'). Defaults to the current working directory.
+
 ```
 
 positional arguments:
@@ -82,12 +88,12 @@ positional arguments:
   cols          How many columns to split the image into (vertical split).
 
 optional arguments:
-  -h, --help            Show this help message and exit
-  -s, --square          If the image should be resized into a square before splitting.
-  -r, --reverse         Reverse the splitting process, i.e. merge multiple tiles of an image into one.
-  --cleanup             After splitting or merging, delete the original image/images.
-  --load-large-images   Pass this flag for use with really large images.
-
+  -h, --help                Show this help message and exit
+  -s, --square              If the image should be resized into a square before splitting.
+  -r, --reverse             Reverse the splitting process, i.e. merge multiple tiles of an image into one.
+  --cleanup                 After splitting or merging, delete the original image/images.
+  --load-large-images       Pass this flag for use with really large images.
+  --output-dir <dir-name>   Set the output directory for image tiles (e.g. 'outp/images'). 
 ```
 
 Cat photo by <a href="https://unsplash.com/@madhatterzone?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Manja Vitolic</a> on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
