@@ -19,7 +19,20 @@
 
 From the command line:
 
-`split-image [-h] [-s] image_path rows cols`
+```
+split-image [-h] [-s] image_path rows cols
+```
+
+As a regular module import:
+
+```
+from split_image import split_image
+
+split_image(image_path, rows, cols, should_square, should_cleanup, [output_dir])
+# e.g. split_image("bridge.jpg", 2, 2, True, False)
+
+```
+
 
 <p align="center">
 <img width="75%" src="https://user-images.githubusercontent.com/9117427/130827013-1dfe300c-9a2d-4b44-a27b-86a6781e115b.png"/>

@@ -1,5 +1,5 @@
 ## [1.6.0]
-* Can now import the package in your Python scripts with an import like `from split-image import split_image`
+* Can now import the package in your Python scripts with an import like `from split_image import split_image`
 * Fixed an issue with exporting squared (resized) JPG images.
 * Refactored the `split` process to `split_image`.
 
