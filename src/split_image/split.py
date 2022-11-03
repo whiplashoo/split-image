@@ -7,10 +7,26 @@ from collections import Counter
 from PIL import Image
 
 
-def split(im, rows, cols, image_path, should_cleanup, output_dir=None):
+def split_image(image_path, rows, cols, should_square, should_cleanup, output_dir=None):
+    im = Image.open(image_path)
     im_width, im_height = im.size
     row_width = int(im_width / rows)
     row_height = int(im_height / cols)
+    if should_square:
+        min_dimension = min(im_width, im_height)
+        max_dimension = max(im_width, im_height)
+        print("Resizing image to a square...")
+        bg_color = determine_bg_color(im)
+        print("Background color is... " + str(bg_color))
+        im_r = Image.new("RGBA", (max_dimension, max_dimension), bg_color)
+        offset = int((max_dimension - min_dimension) / 2)
+        if im_width > im_height:
+            im_r.paste(im, (0, offset))
+        else:
+            im_r.paste(im, (offset, 0))
+        print("Exporting resized image...")
+        im_r.save(image_path + "_squared.png")
+        im = im_r
     n = 0
     for i in range(0, cols):
         for j in range(0, rows):
@@ -122,27 +138,8 @@ def main():
         reverse_split(paths_to_merge, args.rows,
                       args.cols, image_path, args.cleanup)
     else:
-        im = Image.open(image_path)
-        im_width, im_height = im.size
-        min_dimension = min(im_width, im_height)
-        max_dimension = max(im_width, im_height)
-        if args.square:
-            print("Resizing image to a square...")
-            bg_color = determine_bg_color(im)
-            print("Background color is... " + str(bg_color))
-            im_r = Image.new("RGBA", (max_dimension, max_dimension), bg_color)
-            offset = int((max_dimension - min_dimension) / 2)
-            if im_width > im_height:
-                im_r.paste(im, (0, offset))
-            else:
-                im_r.paste(im, (offset, 0))
-            split(im_r, args.rows, args.cols, image_path,
-                  args.cleanup, output_dir=args.output_dir)
-            print("Exporting resized image...")
-            im_r.save(image_path + "_squared.png")
-        else:
-            split(im, args.rows, args.cols, image_path,
-                  args.cleanup, output_dir=args.output_dir)
+        split_image(image_path, args.rows, args.cols,
+                    args.square, args.cleanup, args.output_dir)
     print("Done!")
 
 
