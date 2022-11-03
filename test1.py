@@ -1,5 +1,3 @@
-from PIL import Image
+from split_image import split_image
 
-from split_image import split
-
-split(Image.open("bridge.jpg"), 2, 2, "bridge.jpg", False)
+split_image("bridge.jpg", 2, 2, True, False)
