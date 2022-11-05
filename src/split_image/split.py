@@ -7,7 +7,7 @@ from collections import Counter
 from PIL import Image
 
 
-def split_image(image_path, rows, cols, should_square, should_cleanup, output_dir=None):
+def split_image(image_path, rows, cols, should_square, should_cleanup, should_fast=False, output_dir=None):
     im = Image.open(image_path)
     im_width, im_height = im.size
     row_width = int(im_width / rows)
@@ -21,9 +21,11 @@ def split_image(image_path, rows, cols, should_square, should_cleanup, output_di
     if should_square:
         min_dimension = min(im_width, im_height)
         max_dimension = max(im_width, im_height)
-        print("Resizing image to a square...")
+        if not should_fast:
+            print("Resizing image to a square...")
         bg_color = determine_bg_color(im)
-        print("Background color is... " + str(bg_color))
+        if not should_fast:
+            print("Background color is... " + str(bg_color))
         im_r = Image.new("RGBA" if ext == "png" else "RGB",
                          (max_dimension, max_dimension), bg_color)
         offset = int((max_dimension - min_dimension) / 2)
@@ -31,7 +33,8 @@ def split_image(image_path, rows, cols, should_square, should_cleanup, output_di
             im_r.paste(im, (0, offset))
         else:
             im_r.paste(im, (offset, 0))
-        print("Exporting resized image...")
+        if not should_fast:
+            print("Exporting resized image...")
         outp_path = name + "_squared" + ext
         outp_path = os.path.join(output_dir, outp_path)
         im_r.save(outp_path)
@@ -44,11 +47,13 @@ def split_image(image_path, rows, cols, should_square, should_cleanup, output_di
             outp = im.crop(box)
             outp_path = name + "_" + str(n) + ext
             outp_path = os.path.join(output_dir, outp_path)
-            print("Exporting image tile: " + outp_path)
+            if not should_fast:
+                print("Exporting image tile: " + outp_path)
             outp.save(outp_path)
             n += 1
     if should_cleanup:
-        print("Cleaning up: " + image_path)
+        if not should_fast:
+            print("Cleaning up: " + image_path)
         os.remove(image_path)
 
 
