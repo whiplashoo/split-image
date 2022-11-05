@@ -93,6 +93,12 @@ When working with large images (over 178,956,970 pixels), you may get an error. 
 
 Set the output directory for image tiles (e.g. 'outp/images'). Defaults to the current working directory.
 
+#### Quiet mode:
+
+`split-image test.jpg 3 4 --quiet`
+
+Will suppress all log messages (except errors and warnings) when running.
+
 ```
 
 positional arguments:
@@ -107,6 +113,7 @@ optional arguments:
   --cleanup                 After splitting or merging, delete the original image/images.
   --load-large-images       Pass this flag for use with really large images.
   --output-dir <dir-name>   Set the output directory for image tiles (e.g. 'outp/images'). 
+  --quiet                   Run without printing any messages.
 ```
 
 Cat photo by <a href="https://unsplash.com/@madhatterzone?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Manja Vitolic</a> on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
