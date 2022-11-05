@@ -134,7 +134,7 @@ def main():
     parser.add_argument("--output-dir", type=str,
                         help="Set the output directory for image tiles (e.g. 'outp/images'). Defaults to current working directory.")
     parser.add_argument("--quiet", action="store_true",
-                        help="Run without printing any output.")
+                        help="Run without printing any messages.")
 
     args = parser.parse_args()
     image_path = args.image_path[0]

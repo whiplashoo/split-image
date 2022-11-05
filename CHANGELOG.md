@@ -1,5 +1,8 @@
+## [1.7.0]
+* Added the ability to set a `quiet` flag (`--quiet`), that will suppress all log messages (except errors and warnings) when running.
+
 ## [1.6.0]
-* Can now import the package in your Python scripts with an import like `from split_image import split_image`
+* Can now import the package in your Python scripts with an import like `from split_image import split_image`.
 * Fixed an issue with exporting squared (resized) JPG images.
 * Refactored the `split` process to `split_image`.
 
