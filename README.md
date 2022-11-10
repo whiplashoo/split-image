@@ -25,7 +25,7 @@ split-image [-h] [-s] image_path rows cols
 
 As a regular module import:
 
-```
+```python
 from split_image import split_image
 
 split_image(image_path, rows, cols, should_square, should_cleanup, [output_dir])
