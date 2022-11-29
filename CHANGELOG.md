@@ -1,3 +1,6 @@
+## [2.0.1]
+* Fixed an issue with calculating the row and column width when the image has been resized to a square first.
+
 ## [2.0.0]
 * [BREAKING] Swapped the rows and cols argument bindings in the script, as they were previously set incorrectly. Now `split-image test.jpg 3 2` will split the image into 3 rows and 2 columns (it previously split it into 3 columns and two rows). You may need to change your script arguments.
 * Added the ability to batch process whole directories with images. Usage: `split-image image_dir 2 2` will split all images inside the `image_dir` folder. Closes #3.
