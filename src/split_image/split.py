@@ -118,7 +118,7 @@ def main():
     parser = argparse.ArgumentParser(
         description="Split an image into rows and columns.")
     parser.add_argument("image_path", nargs=1,
-                        help="The path of the image to process.")
+                        help="The path to the image or directory with images to process.")
     parser.add_argument("rows", type=int, default=2, nargs='?',
                         help="How many rows to split the image into (horizontal split).")
     parser.add_argument("cols", type=int, default=2, nargs='?',
@@ -137,24 +137,38 @@ def main():
                         help="Run without printing any messages.")
 
     args = parser.parse_args()
-    image_path = args.image_path[0]
     if args.load_large_images:
         Image.MAX_IMAGE_PIXELS = None
-    if args.reverse:
+    image_path = args.image_path[0]
+    if not os.path.exists(image_path):
+        print("Error: Image path does not exist!")
+        return
+    if os.path.isdir(image_path):
+        if args.reverse:
+            print("Error: Cannot reverse split a directory of images!")
+            return
         if not args.quiet:
-            print(
-                "Reverse mode selected! Will try to merge multiple tiles of an image into one.\n")
-        start_name, ext = os.path.splitext(image_path)
-        # Find all files that start with the same name as the image,
-        # followed by "_" and a number, and with the same file extension.
-        expr = re.compile(r"^" + start_name + "_\d+" + ext + "$")
-        paths_to_merge = sorted([f for f in os.listdir(
-            os.getcwd()) if re.match(expr, f)], key=lambda x: int(x.split("_")[-1].split(".")[0]))
-        reverse_split(paths_to_merge, args.rows,
-                      args.cols, image_path, args.cleanup, args.quiet)
+            print("Splitting all images in directory: " + image_path)
+        for file in os.listdir(image_path):
+            if file.endswith(".jpg") or file.endswith(".jpeg") or file.endswith(".png"):
+                split_image(os.path.join(image_path, file), args.rows, args.cols,
+                            args.square, args.cleanup, args.quiet, args.output_dir)
     else:
-        split_image(image_path, args.rows, args.cols,
-                    args.square, args.cleanup, args.quiet, args.output_dir)
+        if args.reverse:
+            if not args.quiet:
+                print(
+                    "Reverse mode selected! Will try to merge multiple tiles of an image into one.\n")
+            start_name, ext = os.path.splitext(image_path)
+            # Find all files that start with the same name as the image,
+            # followed by "_" and a number, and with the same file extension.
+            expr = re.compile(r"^" + start_name + "_\d+" + ext + "$")
+            paths_to_merge = sorted([f for f in os.listdir(
+                os.getcwd()) if re.match(expr, f)], key=lambda x: int(x.split("_")[-1].split(".")[0]))
+            reverse_split(paths_to_merge, args.rows,
+                          args.cols, image_path, args.cleanup, args.quiet)
+        else:
+            split_image(image_path, args.rows, args.cols,
+                        args.square, args.cleanup, args.quiet, args.output_dir)
     if not args.quiet:
         print("Done!")
 
