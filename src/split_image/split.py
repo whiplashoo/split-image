@@ -13,7 +13,7 @@ def split_image(image_path, rows, cols, should_square, should_cleanup, should_qu
     row_width = int(im_width / cols)
     row_height = int(im_height / rows)
     name, ext = os.path.splitext(image_path)
-    name = os.path.basename(name) # for handling the file in a directory.
+    name = os.path.basename(name)
     if output_dir != None:
         if not os.path.exists(output_dir):
             os.makedirs(output_dir)

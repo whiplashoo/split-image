@@ -1,3 +1,8 @@
+## [2.0.0]
+* [BREAKING] Swapped the rows and cols argument bindings in the script, as they were previously set incorrectly. Now `split-image test.jpg 3 2` will split the image into 3 rows and 2 columns (it previously split it into 3 columns and two rows). You may need to change your script arguments.
+* Added the ability to batch process whole directories with images. Usage: `split-image image_dir 2 2` will split all images inside the `image_dir` folder. Closes #3.
+* Fixed an issue with the image path name when it came from a directory.
+
 ## [1.7.0]
 * Added the ability to set a `quiet` flag (`--quiet`), that will suppress all log messages (except errors and warnings) when running.
 

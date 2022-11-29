@@ -75,6 +75,12 @@ they will be merged according to their file name:
 <img width="75%" src="https://user-images.githubusercontent.com/9117427/182033564-514a47c9-f76e-4ee7-9520-7b1dac68f221.png"/>
 </p>
 
+#### Directory batch process:
+
+`split-image image_dir 4 2`
+
+Will split all images contained in the `image_dir` folder. 
+
 #### Cleanup:
 
 `split-image test.jpg 4 2 --cleanup`
@@ -99,10 +105,12 @@ Set the output directory for image tiles (e.g. 'outp/images'). Defaults to the c
 
 Will suppress all log messages (except errors and warnings) when running.
 
+### Arguments list:
+
 ```
 
 positional arguments:
-  image_path    The path of the image to split.
+  image_path    The path to the image or directory with images to split.
   rows          How many rows to split the image into (horizontal split).
   cols          How many columns to split the image into (vertical split).
 
