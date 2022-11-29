@@ -10,8 +10,8 @@ from PIL import Image
 def split_image(image_path, rows, cols, should_square, should_cleanup, should_quiet=False, output_dir=None):
     im = Image.open(image_path)
     im_width, im_height = im.size
-    row_width = int(im_width / rows)
-    row_height = int(im_height / cols)
+    row_width = int(im_width / cols) # reversed
+    row_height = int(im_height / rows) # reversed
     name, ext = os.path.splitext(image_path)
     if output_dir != None:
         if not os.path.exists(output_dir):
