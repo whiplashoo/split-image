@@ -41,6 +41,8 @@ def split_image(image_path, rows, cols, should_square, should_cleanup, should_qu
         outp_path = os.path.join(output_dir, outp_path)
         im_r.save(outp_path)
         im = im_r
+        row_width = int(max_dimension / cols)
+        row_height = int(max_dimension / rows)
     n = 0
     for i in range(0, rows):
         for j in range(0, cols):
