@@ -10,8 +10,8 @@ from PIL import Image
 def split_image(image_path, rows, cols, should_square, should_cleanup, should_quiet=False, output_dir=None):
     im = Image.open(image_path)
     im_width, im_height = im.size
-    row_width = int(im_width / rows)
-    row_height = int(im_height / cols)
+    row_width = int(im_width / cols)
+    row_height = int(im_height / rows)
     name, ext = os.path.splitext(image_path)
     if output_dir != None:
         if not os.path.exists(output_dir):
@@ -41,8 +41,8 @@ def split_image(image_path, rows, cols, should_square, should_cleanup, should_qu
         im_r.save(outp_path)
         im = im_r
     n = 0
-    for i in range(0, cols):
-        for j in range(0, rows):
+    for i in range(0, rows):
+        for j in range(0, cols):
             box = (j * row_width, i * row_height, j * row_width +
                    row_width, i * row_height + row_height)
             outp = im.crop(box)
