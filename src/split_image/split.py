@@ -49,7 +49,7 @@ def split_image(image_path, rows, cols, should_square, should_cleanup, should_qu
             box = (j * row_width, i * row_height, j * row_width +
                    row_width, i * row_height + row_height)
             outp = im.crop(box)
-            outp_path = name + "_" + str(n) + ext
+            outp_path = name + "_" + str(n).zfill(5) + ext
             outp_path = os.path.join(output_dir, outp_path)
             if not should_quiet:
                 print("Exporting image tile: " + outp_path)
