@@ -113,24 +113,20 @@ def reverse_split(paths_to_merge, rows, cols, image_path, should_cleanup, should
             conditional_print(not should_quiet, "Cleaning up: " + p)
             os.remove(p)
 
-
-def determine_bg_color(im):
-    im_width, im_height = im.size
+@profile
+def determine_bg_color(im, border_percentage: int = 5):
+    if not (0 <= border_percentage <= 100): raise ValueError("border_percentage must be between 0 and 100")
     rgb_im = im.convert('RGBA')
-    all_colors = []
-    areas = [[(0, 0), (im_width, im_height / 10)],
-             [(0, 0), (im_width / 10, im_height)],
-             [(im_width * 9 / 10, 0), (im_width, im_height)],
-             [(0, im_height * 9 / 10), (im_width, im_height)]]
-    for area in areas:
-        start = area[0]
-        end = area[1]
-        for x in range(int(start[0]), int(end[0])):
-            for y in range(int(start[1]), int(end[1])):
-                pix = rgb_im.getpixel((x, y))
-                all_colors.append(pix)
-    return Counter(all_colors).most_common(1)[0][0]
-
+    width, height = im.size
+    border_px_width = int(width * border_percentage / 100)
+    border_px_height = int(height * border_percentage / 100)
+    edges = []
+    edges.extend(rgb_im.crop((0, 0, width, border_px_height)).get_flattened_data())
+    edges.extend(rgb_im.crop((0, 0, border_px_width, height)).get_flattened_data())
+    edges.extend(rgb_im.crop((width - border_px_width, 0, width, height)).get_flattened_data())
+    edges.extend(rgb_im.crop((0, height - border_px_height, width, height)).get_flattened_data())
+    
+    return Counter(edges).most_common(1)[0][0]
 
 def main():
     parser = argparse.ArgumentParser(
