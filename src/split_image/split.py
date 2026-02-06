@@ -113,7 +113,6 @@ def reverse_split(paths_to_merge, rows, cols, image_path, should_cleanup, should
             conditional_print(not should_quiet, "Cleaning up: " + p)
             os.remove(p)
 
-@profile
 def determine_bg_color(im, border_percentage: int = 5):
     if not (0 <= border_percentage <= 100): raise ValueError("border_percentage must be between 0 and 100")
     rgb_im = im.convert('RGBA')
