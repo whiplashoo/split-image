@@ -10,54 +10,73 @@ def conditional_print(condition:bool, value, end=None):
     if not condition: return
     print(value, end=end)
 
-def split_image(image_path, rows, cols, should_square, should_cleanup, should_quiet=False, output_dir=None):
-    im = Image.open(image_path)
-    im_width, im_height = im.size
-    row_width = int(im_width / cols)
-    row_height = int(im_height / rows)
-    name, ext = os.path.splitext(image_path)
-    name = os.path.basename(name)
-    if output_dir != None:
-        if not os.path.exists(output_dir):
-            os.makedirs(output_dir)
-    else:
-        output_dir = "./"
-    if should_square:
+def square_image(im: Image, should_quiet=False):
+        im_width, im_height = im.size
+        mode = im.mode
         min_dimension = min(im_width, im_height)
         max_dimension = max(im_width, im_height)
         conditional_print(not should_quiet, "Resizing image to a square...")
         conditional_print(not should_quiet, "Determining background color...")
         bg_color = determine_bg_color(im)
         conditional_print(not should_quiet, "Background color is... " + str(bg_color))
-        im_r = Image.new("RGBA" if ext == "png" else "RGB",
-                         (max_dimension, max_dimension), bg_color)
+        im_r = Image.new(
+            mode = mode,
+            size = (max_dimension, max_dimension), 
+            color = bg_color
+            )
         offset = int((max_dimension - min_dimension) / 2)
         if im_width > im_height:
             im_r.paste(im, (0, offset))
         else:
             im_r.paste(im, (offset, 0))
+        return im_r
+
+def extract_tiles(im: Image, col_width: int, row_height: int):
+    im_width, im_height = im.size 
+    cols = im_width / col_width
+    rows = im_height / row_height
+    if not cols.is_integer(): raise ValueError("column width must be a factor of the total image width")
+    if not rows.is_integer(): raise ValueError("row height must be a factor of the total image height")
+    rows, cols = int(rows), int(cols)
+    outputs = []
+    for i in range(0, rows):
+        for j in range(0, cols):
+            box = (j * col_width, i * row_height, j * col_width +
+                   col_width, i * row_height + row_height)
+            outputs.append(im.crop(box))
+    return outputs
+
+def split_image(image_path, rows, cols, should_square, should_cleanup, should_quiet=False, output_dir=None):
+    im = Image.open(image_path)
+    im_width, im_height = im.size
+    col_width = int(im_width / cols)
+    row_height = int(im_height / rows)
+    name, ext = os.path.splitext(image_path)
+    name = os.path.basename(name)
+    if output_dir != None:
+        os.makedirs(output_dir, exist_ok=True)
+    else:
+        output_dir = "./"
+    if should_square:
+        im_r = square_image(im, should_quiet)
         conditional_print(not should_quiet, "Exporting resized image...")
         outp_path = name + "_squared" + ext
         outp_path = os.path.join(output_dir, outp_path)
-        im_r.save(outp_path)
+        im_r.save(outp_path) # intermediary file output
         im = im_r
-        row_width = int(max_dimension / cols)
-        row_height = int(max_dimension / rows)
-    n = 0
-    for i in range(0, rows):
-        for j in range(0, cols):
-            box = (j * row_width, i * row_height, j * row_width +
-                   row_width, i * row_height + row_height)
-            outp = im.crop(box)
-            outp_path = name + "_" + str(n) + ext
-            outp_path = os.path.join(output_dir, outp_path)
-            conditional_print(not should_quiet, "Exporting image tile: " + outp_path)
-            outp.save(outp_path)
-            n += 1
+        col_width = int(im.size[0] / cols)
+        row_height = int(im.size[1] / rows)
+
+    outputs = extract_tiles(im, col_width, row_height)
+
+    for n, item in enumerate(outputs):
+        outp_path = name + "_" + str(n) + ext
+        outp_path = os.path.join(output_dir, outp_path)
+        conditional_print(not should_quiet, "Exporting image tile: " + outp_path)
+        item.save(outp_path) # final file outputs
     if should_cleanup:
         conditional_print(not should_quiet, "Cleaning up: " + image_path)
         os.remove(image_path)
-
 
 def reverse_split(paths_to_merge, rows, cols, image_path, should_cleanup, should_quiet=False):
     if len(paths_to_merge) == 0:
