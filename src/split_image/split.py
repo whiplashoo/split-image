@@ -6,30 +6,31 @@ from collections import Counter
 
 from PIL import Image
 
+
 def conditional_print(condition:bool, value, end=None):
     if not condition: return
     print(value, end=end)
 
 def square_image(im: Image, should_quiet=False):
-        im_width, im_height = im.size
-        mode = im.mode
-        min_dimension = min(im_width, im_height)
-        max_dimension = max(im_width, im_height)
-        conditional_print(not should_quiet, "Resizing image to a square...")
-        conditional_print(not should_quiet, "Determining background color...")
-        bg_color = determine_bg_color(im)
-        conditional_print(not should_quiet, "Background color is... " + str(bg_color))
-        im_r = Image.new(
-            mode = mode,
-            size = (max_dimension, max_dimension), 
-            color = bg_color
-            )
-        offset = int((max_dimension - min_dimension) / 2)
-        if im_width > im_height:
-            im_r.paste(im, (0, offset))
-        else:
-            im_r.paste(im, (offset, 0))
-        return im_r
+    im_width, im_height = im.size
+    mode = im.mode
+    min_dimension = min(im_width, im_height)
+    max_dimension = max(im_width, im_height)
+    conditional_print(not should_quiet, "Resizing image to a square...")
+    conditional_print(not should_quiet, "Determining background color...")
+    bg_color = determine_bg_color(im)
+    conditional_print(not should_quiet, "Background color is... " + str(bg_color))
+    im_r = Image.new(
+        mode = mode,
+        size = (max_dimension, max_dimension), 
+        color = bg_color
+        )
+    offset = int((max_dimension - min_dimension) / 2)
+    if im_width > im_height:
+        im_r.paste(im, (0, offset))
+    else:
+        im_r.paste(im, (offset, 0))
+    return im_r
 
 def extract_tiles(im: Image, col_width: int, row_height: int):
     im_width, im_height = im.size 
@@ -98,10 +99,10 @@ def reverse_split(paths_to_merge, rows, cols, image_path, should_cleanup, should
         conditional_print(not should_quiet, path)
     conditional_print(not should_quiet, "Merging image tiles with the following layout:", end=" ")
     for i in range(0, rows):
-        print("\n")
+        conditional_print(not should_quiet, "\n")
         for j in range(0, cols):
-            print(paths_to_merge[i * cols + j], end=" ")
-    print("\n")
+            conditional_print(not should_quiet, paths_to_merge[i * cols + j], end=" ")
+    conditional_print(not should_quiet, "\n")
     for i in range(0, rows):
         for j in range(0, cols):
             image = images_to_merge[i * cols + j]
