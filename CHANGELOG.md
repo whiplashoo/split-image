@@ -1,3 +1,8 @@
+## [2.0.2]
+* You can now use `extract_tiles()` in your own code: `from split_image import extract_tiles` to get image tiles in memory without reading/writing files.
+* Squaring and splitting are faster, especially when using `--square`.
+* `--quiet` is now fully respected when merging tiles (reverse mode).
+
 ## [2.0.1]
 * Fixed an issue with calculating the row and column width when the image has been resized to a square first.
 
