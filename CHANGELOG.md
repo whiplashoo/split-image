@@ -1,4 +1,4 @@
-## [2.0.2]
+## [2.0.2-3]
 * You can now use `extract_tiles()` in your own code: `from split_image import extract_tiles` to get image tiles in memory without reading/writing files.
 * Squaring and splitting are faster, especially when using `--square`.
 * `--quiet` is now fully respected when merging tiles (reverse mode).
