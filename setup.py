@@ -25,7 +25,7 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     install_requires=[
-        'Pillow',
+        "Pillow>=9.0.0",
     ],
     package_dir={"": "src"},
     packages=setuptools.find_packages(where="src"),

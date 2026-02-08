@@ -114,6 +114,13 @@ def reverse_split(paths_to_merge, rows, cols, image_path, should_cleanup, should
             conditional_print(not should_quiet, "Cleaning up: " + p)
             os.remove(p)
 
+def _get_pixel_data(im):
+    """Pixel data as a sequence of (r,g,b,a) tuples. Works on Pillow < 12.1 (getdata) and >= 12.1 (get_flattened_data)."""
+    if hasattr(im, "get_flattened_data"):
+        return im.get_flattened_data()
+    return im.getdata()
+
+
 def determine_bg_color(im, border_percentage: int = 5):
     if not (0 <= border_percentage <= 100): raise ValueError("border_percentage must be between 0 and 100")
     rgb_im = im.convert('RGBA')
@@ -121,11 +128,13 @@ def determine_bg_color(im, border_percentage: int = 5):
     border_px_width = int(width * border_percentage / 100)
     border_px_height = int(height * border_percentage / 100)
     edges = []
-    edges.extend(rgb_im.crop((0, 0, width, border_px_height)).get_flattened_data())
-    edges.extend(rgb_im.crop((0, 0, border_px_width, height)).get_flattened_data())
-    edges.extend(rgb_im.crop((width - border_px_width, 0, width, height)).get_flattened_data())
-    edges.extend(rgb_im.crop((0, height - border_px_height, width, height)).get_flattened_data())
-    
+    for crop_box in [
+        (0, 0, width, border_px_height),
+        (0, 0, border_px_width, height),
+        (width - border_px_width, 0, width, height),
+        (0, height - border_px_height, width, height),
+    ]:
+        edges.extend(_get_pixel_data(rgb_im.crop(crop_box)))
     return Counter(edges).most_common(1)[0][0]
 
 def main():
