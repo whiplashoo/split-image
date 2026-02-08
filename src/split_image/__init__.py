@@ -1,1 +1,1 @@
-from .split import split_image, reverse_split
+from .split import split_image, reverse_split, extract_tiles
