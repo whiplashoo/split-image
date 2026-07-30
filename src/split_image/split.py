@@ -172,7 +172,7 @@ def main():
             return
         conditional_print(not args.quiet, "Splitting all images in directory: " + image_path)
         for file in os.listdir(image_path):
-            if file.endswith(".jpg") or file.endswith(".jpeg") or file.endswith(".png"):
+            if file.lower().endswith((".jpg", ".jpeg", ".png", ".webp", ".bmp", ".tiff")):
                 split_image(os.path.join(image_path, file), args.rows, args.cols,
                             args.square, args.cleanup, args.quiet, args.output_dir)
     else:
