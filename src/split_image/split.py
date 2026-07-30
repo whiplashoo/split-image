@@ -47,6 +47,17 @@ def extract_tiles(im: Image, col_width: int, row_height: int):
             outputs.append(im.crop(box))
     return outputs
 
+def get_save_params(im, ext):
+    """Return extra keyword arguments to preserve the original image's compression quality."""
+    params = {}
+    if ext.lower() in ('.jpg', '.jpeg'):
+        qtables = getattr(im, 'quantization', None)
+        if qtables:
+            params['qtables'] = qtables
+            subsampling = im.info.get('subsampling', -1)
+            params['subsampling'] = subsampling
+    return params
+
 def split_image(image_path, rows, cols, should_square, should_cleanup, should_quiet=False, output_dir=None):
     im = Image.open(image_path)
     im_width, im_height = im.size
@@ -58,12 +69,13 @@ def split_image(image_path, rows, cols, should_square, should_cleanup, should_qu
         os.makedirs(output_dir, exist_ok=True)
     else:
         output_dir = "./"
+    save_params = get_save_params(im, ext)
     if should_square:
         im_r = square_image(im, should_quiet)
         conditional_print(not should_quiet, "Exporting resized image...")
         outp_path = name + "_squared" + ext
         outp_path = os.path.join(output_dir, outp_path)
-        im_r.save(outp_path) # intermediary file output
+        im_r.save(outp_path, **save_params) # intermediary file output
         im = im_r
         col_width = int(im.size[0] / cols)
         row_height = int(im.size[1] / rows)
@@ -74,7 +86,7 @@ def split_image(image_path, rows, cols, should_square, should_cleanup, should_qu
         outp_path = name + "_" + str(n) + ext
         outp_path = os.path.join(output_dir, outp_path)
         conditional_print(not should_quiet, "Exporting image tile: " + outp_path)
-        item.save(outp_path) # final file outputs
+        item.save(outp_path, **save_params) # final file outputs
     if should_cleanup:
         conditional_print(not should_quiet, "Cleaning up: " + image_path)
         os.remove(image_path)
