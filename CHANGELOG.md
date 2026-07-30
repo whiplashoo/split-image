@@ -1,3 +1,7 @@
+## [2.0.4]
+* Fix case insensitivity issue when searching for image files in a directory.
+* Add support for WebP, BMP, and TIFF image formats.
+
 ## [2.0.2-3]
 * You can now use `extract_tiles()` in your own code: `from split_image import extract_tiles` to get image tiles in memory without reading/writing files.
 * Squaring and splitting are faster, especially when using `--square`.
