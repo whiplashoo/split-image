@@ -1,3 +1,6 @@
+## [2.0.5]
+* Preserve JPEG quantization tables when saving image tiles. This fixes the issue where the image tiles had larger file sizes than the original image.
+
 ## [2.0.4]
 * Fix case insensitivity issue when searching for image files in a directory.
 * Add support for WebP, BMP, and TIFF image formats.
